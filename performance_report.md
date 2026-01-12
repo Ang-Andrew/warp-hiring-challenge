@@ -9,7 +9,7 @@ The goal was to parse a large log file (`space_missions.log`) containing over 10
 *   Metric: Maximum `Duration`
 
 ## Performance Comparison
-I implemented three solutions to solve this problem. Below are the execution times measured on the local machine.
+I implemented five variations of the solution to solve this problem. Below are the execution times measured on the local machine.
 
 | Implementation | Language | Execution Time | Relative Speed |
 | :--- | :--- | :--- | :--- |

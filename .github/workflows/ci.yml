@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Create Dummy Data
+      run: |
+        # Create a sample log file for testing purposes
+        echo "# Date | Mission ID | Destination | Status | Crew Size | Duration | Success Rate | Security Code" > space_missions.log
+        echo "2020-01-01|001|Mars|Completed|5|100|99|ALPHA" >> space_missions.log
+        echo "2020-01-02|002|Moon|Completed|3|200|99|BETA" >> space_missions.log
+        echo "2020-01-03|003|Mars|Failed|5|50|0|GAMMA" >> space_missions.log
+        echo "2020-01-04|004|Mars|Completed|4|150|95|DELTA" >> space_missions.log
+        cat space_missions.log
+
+    - name: Test Python Solution
+      run: python3 solve_challenge.py
+
+    - name: Test Bash Solution (Original)
+      run: bash solve_challenge.sh
+
+    - name: Test Bash Solution (Optimized)
+      run: bash solve_challenge_optimized.sh
+
+    - name: Compile and Run C Solution
+      run: |
+        gcc solve_challenge.c -o solve_c
+        ./solve_c
+
+    - name: Compile and Run Rust Solution
+      run: |
+        rustc solve_challenge.rs -o solve_rs
+        ./solve_rs
