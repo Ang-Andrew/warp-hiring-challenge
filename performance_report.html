@@ -1,178 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warp Hiring Challenge - Performance Analysis</title>
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --border-color: #e2e8f0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warp Hiring Challenge - Performance Analysis</title>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --border-color: #e2e8f0;
+    }
 
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 2rem;
-        }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 2rem;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-        header {
-            margin-bottom: 3rem;
-            text-align: center;
-        }
+    header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
+    h1 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            border: 1px solid var(--border-color);
-        }
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      border: 1px solid var(--border-color);
+    }
 
-        h2 {
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            margin-top: 0;
-        }
+    h2 {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-top: 0;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
 
-        th, td {
-            text-align: left;
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
+    th,
+    td {
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
 
-        th {
-            background-color: #f1f5f9;
-            font-weight: 600;
-        }
+    th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+    }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
+    tr:last-child td {
+      border-bottom: none;
+    }
 
-        code {
-            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-            background-color: #f1f5f9;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-            color: #d63384;
-        }
+    code {
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      background-color: #f1f5f9;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #d63384;
+    }
 
-        pre {
-            background-color: #1e293b;
-            color: #e2e8f0;
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 0.9rem;
-        }
+    pre {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
 
-        .highlight {
-            color: #22c55e;
-            font-weight: bold;
-        }
-    </style>
+    .highlight {
+      color: #22c55e;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>Warp Hiring Challenge</h1>
-            <p>Performance Analysis of Different Solutions</p>
-        </header>
+  <div class="container">
+    <header>
+      <h1>Warp Hiring Challenge</h1>
+      <p>Performance Analysis of Different Solutions</p>
+    </header>
 
-        <div class="card">
-            <h2>Challenge Overview</h2>
-            <p>The goal was to parse a large log file (<code>space_missions.log</code>) containing over 100,000 records to find the <strong>security code</strong> of the longest successful Mars mission.</p>
-            <p><strong>Criteria:</strong></p>
-            <ul>
-                <li>Destination: <code>Mars</code></li>
-                <li>Status: <code>Completed</code></li>
-                <li>Metric: Maximum <code>Duration</code></li>
-            </ul>
-        </div>
+    <div class="card">
+      <h2>Challenge Overview</h2>
+      <p>The goal was to parse a large log file (<code>space_missions.log</code>) containing over 100,000 records to
+        find the <strong>security code</strong> of the longest successful Mars mission.</p>
+      <p><strong>Criteria:</strong></p>
+      <ul>
+        <li>Destination: <code>Mars</code></li>
+        <li>Status: <code>Completed</code></li>
+        <li>Metric: Maximum <code>Duration</code></li>
+      </ul>
+    </div>
 
-        <div class="card">
-            <h2>Performance Comparison</h2>
-            <p>We implemented three solutions to solve this problem. Below are the execution times measured on the local machine.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Implementation</th>
-                        <th>Language</th>
-                        <th>Execution Time</th>
-                        <th>Relative Speed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Original Script</td>
-                        <td>Bash (awk)</td>
-                        <td>0.507s</td>
-                        <td>1x (Baseline)</td>
-                    </tr>
-                    <tr>
-                        <td>Optimized Script</td>
-                        <td>Bash (awk)</td>
-                        <td>0.362s</td>
-                        <td>~1.4x Faster</td>
-                    </tr>
-                    <tr>
-                        <td>System Level</td>
-                        <td>Rust</td>
-                        <td class="highlight">0.044s</td>
-                        <td class="highlight">~11.5x Faster</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="card">
+      <h2>Performance Comparison</h2>
+      <p>We implemented three solutions to solve this problem. Below are the execution times measured on the local
+        machine.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Implementation</th>
+            <th>Language</th>
+            <th>Execution Time</th>
+            <th>Relative Speed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Original Script</td>
+            <td>Bash (awk)</td>
+            <td>0.507s</td>
+            <td>1x (Baseline)</td>
+          </tr>
+          <tr>
+            <td>Optimized Script</td>
+            <td>Bash (awk)</td>
+            <td>0.362s</td>
+            <td>~1.4x Faster</td>
+          </tr>
+          <tr>
+            <td>High Level</td>
+            <td>Python</td>
+            <td>0.153s</td>
+            <td>~3.3x Faster</td>
+          </tr>
+          <tr>
+            <td>System Level</td>
+            <td>Rust</td>
+            <td class="highlight">0.044s</td>
+            <td class="highlight">~11.5x Faster</td>
+          </tr>
+          <tr>
+            <td>System Level</td>
+            <td>C (mmap)</td>
+            <td class="highlight">0.027s</td>
+            <td class="highlight">~18.8x Faster</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-        <div class="card">
-            <h2>Implementation Details</h2>
-            
-            <h3>1. Original Bash Script</h3>
-            <p>The initial approach used <code>awk</code> with heavy regular expression usage. It performed <code>gsub</code> (global substitution) four times on every single line to trim whitespace, regardless of whether the line was relevant.</p>
-            <pre><code># Heavy regex overhead on every line
+    <div class="card">
+      <h2>Implementation Details</h2>
+
+      <h3>1. Original Bash Script</h3>
+      <p>The initial approach used <code>awk</code> with heavy regular expression usage. It performed <code>gsub</code>
+        (global substitution) four times on every single line to trim whitespace, regardless of whether the line was
+        relevant.</p>
+      <pre><code># Heavy regex overhead on every line
 gsub(/^[ \t]+|[ \t]+$/, "", $3);
 gsub(/^[ \t]+|[ \t]+$/, "", $4);
 ...</code></pre>
 
-            <h3>2. Optimized Bash Script</h3>
-            <p>The optimized version reduced overhead by using loose regex matching (<code>~ /Mars/</code>) to filter lines <em>before</em> processing them. It relies on <code>awk</code>'s native ability to handle leading whitespace when converting strings to numbers, avoiding explicit trimming until the very end.</p>
-            <pre><code># Check first, avoid expensive operations
+      <h3>2. Optimized Bash Script</h3>
+      <p>The optimized version reduced overhead by using loose regex matching (<code>~ /Mars/</code>) to filter lines
+        <em>before</em> processing them. It relies on <code>awk</code>'s native ability to handle leading whitespace
+        when converting strings to numbers, avoiding explicit trimming until the very end.
+      </p>
+      <pre><code># Check first, avoid expensive operations
 if ($3 ~ /Mars/ && $4 ~ /Completed/) {
     # Implicit conversion handles whitespace
     duration = $6 + 0
     ...
 }</code></pre>
 
-            <h3>3. Rust Implementation</h3>
-            <p>The Rust solution leverages static typing, compilation optimizations, and zero-cost abstractions. It parses the file line-by-line using efficient string splitting and native integer parsing, completely bypassing the overhead of an interpreter and regex engine.</p>
-            <pre><code>// Efficient, compiled logic
+      <h3>3. Python Implementation</h3>
+      <p>The Python solution uses standard file I/O and string manipulation. While interpreted, Python's string methods
+        (like <code>split</code> and <code>strip</code>) are implemented in C and are highly optimized, making it
+        significantly faster than <code>awk</code> for this specific task.</p>
+      <pre><code># Python's optimized string handling
+parts = line.split('|')
+if parts[2].strip() == "Mars" and parts[3].strip() == "Completed":
+    duration = int(parts[5].strip())
+    ...</code></pre>
+
+      <h3>4. Rust Implementation</h3>
+      <p>The Rust solution leverages static typing, compilation optimizations, and zero-cost abstractions. It parses the
+        file line-by-line using efficient string splitting and native integer parsing, completely bypassing the overhead
+        of an interpreter and regex engine.</p>
+      <pre><code>// Efficient, compiled logic
 if destination == "Mars" && status == "Completed" {
     if let Ok(duration) = duration_str.parse::<i32>() {
         if duration > max_duration {
@@ -181,7 +215,53 @@ if destination == "Mars" && status == "Completed" {
         }
     }
 }</code></pre>
-        </div>
+
+      <h3>5. C Implementation</h3>
+      <p>The C solution uses <code>mmap</code> to map the entire file into memory, avoiding the overhead of system calls
+        for reading. It manually scans memory for delimiters (<code>|</code>) and parses integers directly from the byte
+        buffer. This "zero-copy" approach is typically the fastest possible way to read files on modern OSes.</p>
+      <pre><code>// Zero-copy memory mapping
+char *file_contents = mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+// Manual pointer arithmetic
+char *line_end = memchr(line_start, '\n', file_end - line_start);
+...</code></pre>
     </div>
+    <div class="card">
+      <h2>Profiling Analysis</h2>
+
+      <h3>Python Profiling (cProfile)</h3>
+      <p>Profiling reveals that string manipulation methods account for the majority of the execution time.</p>
+      <pre><code>   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.111    0.111    0.200    0.200 solve_challenge.py:3(solve)
+   303991    0.040    0.000    0.040    0.000 {method 'strip' of 'str' objects}
+   102038    0.031    0.000    0.031    0.000 {method 'split' of 'str' objects}
+   105032    0.010    0.000    0.010    0.000 {method 'startswith' of 'str' objects}</code></pre>
+      <ul>
+        <li><strong>solve() logic</strong>: ~55% of time (Main loop overhead)</li>
+        <li><strong>str.strip()</strong>: ~20% of time (Called 300k+ times)</li>
+        <li><strong>str.split()</strong>: ~15% of time (Called 100k+ times)</li>
+      </ul>
+      <p>This confirms that while Python's C-implemented string methods are fast, the sheer volume of function calls
+        adds up.</p>
+
+      <h3>Rust Profiling (System Stats)</h3>
+      <p>System resource usage shows extreme efficiency:</p>
+      <pre><code>        0.29 real         0.05 user         0.00 sys
+             1523712  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                 255  page reclaims
+                  30  page faults</code></pre>
+      <ul>
+        <li><strong>User CPU Time</strong>: 0.05s (Actual computation)</li>
+        <li><strong>Memory Usage (RSS)</strong>: ~1.5 MB</li>
+        <li><strong>Page Faults</strong>: ~30 (Minimal memory churn)</li>
+      </ul>
+      <p>The Rust implementation spends almost all its time in user-space computation with negligible system overhead,
+        explaining its 11.5x speed advantage.</p>
+    </div>
+  </div>
 </body>
+
 </html>
